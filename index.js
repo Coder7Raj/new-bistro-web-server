@@ -21,12 +21,19 @@ async function run() {
   try {
     await client.connect();
     await client.db("admin").command({ ping: 1 });
-    // Create a MongoClient with a MongoClientOptions object to set the Stable API version
+    //
+    //
     const db = client.db("NewBistroBoss");
     const menuCollection = db.collection("menu");
     app.get("/menu", async (req, res) => {
       const menu = await menuCollection.find().toArray();
       res.send(menu);
+    });
+    //
+    const reviewCollection = db.collection("reviews");
+    app.get("/reviews", async (req, res) => {
+      const reviews = await reviewCollection.find().toArray();
+      res.send(reviews);
     });
 
     //
